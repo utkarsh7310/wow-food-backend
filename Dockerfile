@@ -1,11 +1,11 @@
-# Stage 1: Build stage
-FROM maven:3.8.5-openjdk-21 AS build
+# Stage 1: Build stage (Java 21 Maven image)
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run stage (Yahan nayi aur sahi image lagayi hai)
-FROM eclipse-temurin:17-jre-jammy
+# Stage 2: Run stage (Java 21 JRE image)
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
